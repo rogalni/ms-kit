@@ -10,6 +10,7 @@ type KitConfig struct {
 	LogLevel         string
 	IsJsonLogging    bool
 	IsTracingEnabled bool
+	IsMetricsEnabled bool
 	IsDevMode        bool
 	JaegerEndpoint   string
 }
@@ -23,6 +24,7 @@ func Default() KitConfig {
 		ServiceName:      "ms-kit-service",
 		Port:             "8080",
 		IsJsonLogging:    true,
+		IsMetricsEnabled: true,
 		IsTracingEnabled: true,
 		JaegerEndpoint:   "http://jaeger:14268/api/traces",
 	}
@@ -35,5 +37,6 @@ func Development() KitConfig {
 		IsJsonLogging:    false,
 		IsTracingEnabled: false,
 		IsDevMode:        true,
+		IsMetricsEnabled: false,
 	}
 }

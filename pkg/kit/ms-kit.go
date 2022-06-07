@@ -17,7 +17,6 @@ func Setup(cfg config.KitConfig) *Kit {
 	if cfg.IsTracingEnabled {
 		tracer.Instrument()
 	}
-
 	srv := fiber.New()
 	return &Kit{
 		Server: srv,

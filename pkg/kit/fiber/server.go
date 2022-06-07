@@ -9,6 +9,7 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/rogalni/ms-kit/pkg/kit/config"
 	"github.com/rogalni/ms-kit/pkg/kit/fiber/health"
+	"github.com/rogalni/ms-kit/pkg/kit/fiber/metrics"
 	"github.com/rogalni/ms-kit/pkg/kit/fiber/shutdown"
 	"github.com/rogalni/ms-kit/pkg/kit/log"
 )
@@ -30,6 +31,7 @@ func New(conf ...fiber.Config) *Server {
 	app := fiber.New(c)
 	app.Use(otelfiber.Middleware(config.Kit.ServiceName))
 	hh := health.For(app)
+	metrics.Instrument(app)
 	return &Server{
 		App:           app,
 		HealthHandler: hh,
