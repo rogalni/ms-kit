@@ -9,7 +9,7 @@ import (
 )
 
 func main() {
-	kit := kit.Setup(config.Default())
+	kit := kit.Setup(config.Development())
 
 	setupRoutes(kit.Server.App)
 	kit.Server.Run()

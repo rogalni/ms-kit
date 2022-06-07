@@ -13,9 +13,9 @@ var log *zap.Logger
 
 func Setup() {
 	if config.Kit.IsDevMode {
-		log, _ = zap.NewDevelopment()
+		log, _ = zap.NewDevelopment(zap.AddCallerSkip(1))
 	} else {
-		log, _ = zap.NewProduction(zap.Fields(defaultFields()...))
+		log, _ = zap.NewProduction(zap.AddCallerSkip(1), zap.Fields(defaultFields()...))
 	}
 }
 
@@ -47,8 +47,8 @@ func (tl *TracedLog) Error(msg string) {
 func tracingFields(tl *TracedLog) []zapcore.Field {
 	if tl.sc.IsValid() {
 		return []zapcore.Field{
-			zap.String("trace", tl.sc.TraceID().String()),
-			zap.String("span", tl.sc.SpanID().String()),
+			zap.String("trace_id", tl.sc.TraceID().String()),
+			zap.String("span_id", tl.sc.SpanID().String()),
 		}
 	}
 	return []zapcore.Field{}
