@@ -22,3 +22,7 @@ func Setup(cfg config.KitConfig) *Kit {
 		Server: srv,
 	}
 }
+
+func (k *Kit) RunServer() {
+	k.Server.Run()
+}
