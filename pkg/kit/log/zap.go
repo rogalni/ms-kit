@@ -12,8 +12,11 @@ import (
 var log *zap.Logger
 
 func Setup() {
-	f := zap.Fields(defaultFields()...)
-	log, _ = zap.NewProduction(f)
+	if config.BEnv(config.EnvDev) {
+		log, _ = zap.NewDevelopment()
+	} else {
+		log, _ = zap.NewProduction(zap.Fields(defaultFields()...))
+	}
 }
 
 type TracedLog struct {

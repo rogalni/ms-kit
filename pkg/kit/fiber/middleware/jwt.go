@@ -11,6 +11,13 @@ import (
 
 var jwt fiber.Handler
 
+func Authorized() fiber.Handler {
+	if jwt == nil {
+		setupJwt()
+	}
+	return jwt
+}
+
 func setupJwt() {
 	ksu := config.EnvOr(config.EnvJwkSetUri, "")
 	if len(ksu) > 0 {
@@ -24,10 +31,4 @@ func setupJwt() {
 			return nil
 		}
 	}
-}
-func Authorized() fiber.Handler {
-	if jwt == nil {
-		setupJwt()
-	}
-	return jwt
 }

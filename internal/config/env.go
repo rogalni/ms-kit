@@ -1,13 +1,18 @@
 package config
 
-import "os"
+import (
+	"os"
+	"strconv"
+)
 
 const (
-	EnvServiceName = "MS_KIT_SERVICE_NAME"
-	EnvPort        = "MS_KIT_PORT"
-	EnvJsonLog     = "MS_KIT_JSON_LOG"
-	EnvLogLevel    = "MS_KIT_LOG_LEVEL"
-	EnvJwkSetUri   = "MS_KIT_JWK_SET_URI"
+	EnvServiceName    = "MS_KIT_SERVICE_NAME"
+	EnvPort           = "MS_KIT_PORT"
+	EnvJwkSetUri      = "MS_KIT_JWK_SET_URI"
+	EnvCors           = "MS_KIT_CORS"
+	EnvLogLevel       = "MS_KIT_LOG_LEVEL"
+	EnvTracingEnabled = "MS_KIT_TRACING_ENABLED"
+	EnvDev            = "MS_KIT_DEV"
 )
 
 func EnvOr(key, defaultValue string) string {
@@ -15,4 +20,15 @@ func EnvOr(key, defaultValue string) string {
 		return v
 	}
 	return defaultValue
+}
+
+func BEnv(key string) bool {
+	if v, ok := os.LookupEnv(key); ok && v != "" {
+		b, err := strconv.ParseBool(v)
+		if err != nil {
+			return false
+		}
+		return b
+	}
+	return false
 }
