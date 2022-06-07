@@ -5,7 +5,7 @@ import (
 
 	"github.com/gofiber/fiber/v2"
 	jwtware "github.com/gofiber/jwt/v3"
-	"github.com/rogalni/ms-kit/internal/config"
+	"github.com/rogalni/ms-kit/pkg/kit/config"
 	"github.com/rogalni/ms-kit/pkg/kit/log"
 )
 
@@ -19,7 +19,7 @@ func Authorized() fiber.Handler {
 }
 
 func setupJwt() {
-	ksu := config.EnvOr(config.EnvJwkSetUri, "")
+	ksu := config.Kit.JwkSetUri
 	if len(ksu) > 0 {
 		jwt = jwtware.New(jwtware.Config{
 			KeySetURL: ksu,

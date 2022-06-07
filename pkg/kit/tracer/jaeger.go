@@ -1,7 +1,7 @@
 package tracer
 
 import (
-	"github.com/rogalni/ms-kit/internal/config"
+	"github.com/rogalni/ms-kit/pkg/kit/config"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/exporters/jaeger"
@@ -22,7 +22,7 @@ func Instrument() error {
 		sdktrace.WithBatcher(exp),
 		sdktrace.WithResource(resource.NewSchemaless(attribute.KeyValue{
 			Key:   semconv.ServiceNameKey,
-			Value: attribute.StringValue(config.EnvOr(config.EnvServiceName, "ms-kit-service")),
+			Value: attribute.StringValue(config.Kit.ServiceName),
 		})),
 	)
 	otel.SetTracerProvider(tp)

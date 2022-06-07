@@ -7,7 +7,7 @@ import (
 
 	"github.com/gofiber/contrib/otelfiber"
 	"github.com/gofiber/fiber/v2"
-	"github.com/rogalni/ms-kit/internal/config"
+	"github.com/rogalni/ms-kit/pkg/kit/config"
 	"github.com/rogalni/ms-kit/pkg/kit/fiber/health"
 	"github.com/rogalni/ms-kit/pkg/kit/fiber/shutdown"
 	"github.com/rogalni/ms-kit/pkg/kit/log"
@@ -28,7 +28,7 @@ func New(conf ...fiber.Config) *Server {
 		c = conf[0]
 	}
 	app := fiber.New(c)
-	app.Use(otelfiber.Middleware(config.EnvOr(config.EnvServiceName, "ms-kit-service")))
+	app.Use(otelfiber.Middleware(config.Kit.ServiceName))
 	hh := health.For(app)
 	return &Server{
 		App:           app,
@@ -39,7 +39,7 @@ func New(conf ...fiber.Config) *Server {
 func (s *Server) Run() {
 	ctx := context.Background()
 	gsc := shutdown.Gracefully(s.App, 2*time.Second)
-	port := config.EnvOr(config.EnvPort, "8080")
+	port := config.Kit.Port
 	log.Ctx(ctx).Info(fmt.Sprintf("Running server on port %s", port))
 	if err := s.App.Listen(fmt.Sprintf(":%s", port)); err != nil {
 		log.Ctx(ctx).Error(fmt.Sprintf("%e", err))

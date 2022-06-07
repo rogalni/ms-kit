@@ -3,7 +3,7 @@ package log
 import (
 	"context"
 
-	"github.com/rogalni/ms-kit/internal/config"
+	"github.com/rogalni/ms-kit/pkg/kit/config"
 	"go.opentelemetry.io/otel/trace"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
@@ -12,7 +12,7 @@ import (
 var log *zap.Logger
 
 func Setup() {
-	if config.BEnv(config.EnvDev) {
+	if config.Kit.IsDevMode {
 		log, _ = zap.NewDevelopment()
 	} else {
 		log, _ = zap.NewProduction(zap.Fields(defaultFields()...))
@@ -56,6 +56,6 @@ func tracingFields(tl *TracedLog) []zapcore.Field {
 
 func defaultFields() []zapcore.Field {
 	return []zapcore.Field{
-		zap.String("service", config.EnvOr(config.EnvServiceName, "ms-kit-service")),
+		zap.String("service", config.Kit.ServiceName),
 	}
 }

@@ -3,12 +3,13 @@ package main
 import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/rogalni/ms-kit/pkg/kit"
+	"github.com/rogalni/ms-kit/pkg/kit/config"
 	"github.com/rogalni/ms-kit/pkg/kit/fiber/middleware"
 	"github.com/rogalni/ms-kit/pkg/kit/log"
 )
 
 func main() {
-	kit := kit.Setup()
+	kit := kit.Setup(config.Default())
 
 	setupRoutes(kit.Server.App)
 	kit.Server.Run()
