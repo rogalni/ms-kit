@@ -1,5 +1,7 @@
 package health
 
+import "encoding/json"
+
 type Health struct {
 	Status     Status      `json:"status"`
 	Code       int         `json:"-"`
@@ -20,6 +22,18 @@ func (s Status) String() string {
 		return "Down"
 	}
 	return "unknown"
+}
+
+func (s Status) MarshalJSON() ([]byte, error) {
+	var st string
+	switch s {
+	case UP:
+		st = "Up"
+	case DOWN:
+		st = "Down"
+	}
+
+	return json.Marshal(st)
 }
 
 type Component struct {

@@ -4,8 +4,8 @@ go 1.18
 
 require (
 	github.com/ansrivas/fiberprometheus/v2 v2.2.0
-	github.com/gofiber/contrib/otelfiber v0.0.0-20220524060257-8ccfafc37b12
-	github.com/gofiber/fiber/v2 v2.34.0
+	github.com/gofiber/contrib/otelfiber v0.0.0-20220615054408-99317a0bbee9
+	github.com/gofiber/fiber/v2 v2.34.1
 	github.com/gofiber/jwt/v3 v3.2.12
 	go.opentelemetry.io/otel v1.7.0
 	go.opentelemetry.io/otel/exporters/jaeger v1.7.0
@@ -36,6 +36,6 @@ require (
 	go.opentelemetry.io/contrib v1.7.0 // indirect
 	go.uber.org/atomic v1.9.0 // indirect
 	go.uber.org/multierr v1.8.0 // indirect
-	golang.org/x/sys v0.0.0-20220520151302-bc2c85ada10a // indirect
+	golang.org/x/sys v0.0.0-20220615213510-4f61da869c0c // indirect
 	google.golang.org/protobuf v1.28.0 // indirect
 )
